@@ -21,7 +21,7 @@ jupyter-nbextensions-configurator==0.5.0
 jupyter-resource-usage==0.6.3
 jupyter-server==1.21.0
 jupyter_client==7.4.3
-jupyter_core==4.11.2
+#jupyter_core==4.11.2
 jupyterlab==3.4.8
 jupyterlab-pygments==0.2.2
 jupyterlab-widgets==1.1.1

@@ -12,20 +12,18 @@ app.state.user_sentiment = pipeline(model= "cardiffnlp/twitter-roberta-base-sent
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
-# Endpoint for https://your-domain.com/
 @app.get("/")
 def root():
     return {
         'message': "Hi, the API is running!"
     }
 
-# Endpoint for https://your-domain.com/predict?input_one=154&input_two=199
 @app.get("/predict")
 def get_predict(text: str):
 

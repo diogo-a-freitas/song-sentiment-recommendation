@@ -1,15 +1,12 @@
 # Song sentiment recommendation
-- Document your project here
-- Description
-- Data used
-- Where your API can be accessed
-- ...
 
-# API
-Document main API endpoints here
+## Models and datasets
 
-# Setup instructions
-Document here for users who want to setup the package locally
+- Transformer for user sentiment: `cardiffnlp/twitter-roberta-base-sentiment-latest`
+- LDA for user topics: [Sentiment140 of tweets on kaggle](https://www.kaggle.com/datasets/kazanova/sentiment140)
+- Genius for song sentiment: [Genius song lyrics on kaggle](https://www.kaggle.com/datasets/carlosgdcj/genius-song-lyrics-with-language-information)
+- Spotify for song information [Spotify tracks dataset on kaggle](https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset)
 
-# Usage
-Document main functionalities of the package here
+## API
+
+FastAPI

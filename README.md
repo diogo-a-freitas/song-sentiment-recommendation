@@ -9,4 +9,4 @@
 
 ## API
 
-FastAPI
+FastAPI: `/predict` endpoint

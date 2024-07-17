@@ -30,6 +30,8 @@ class ApiExtractor:
 
         # parse attributes from track
         self.track = self.ta_response['tracks']['items'][0]
+
+        self.track_id = self.track['id']
         self.track_name = self.track['name']
         self.track_uri = self.track['uri']
         self.track_popularity = self.track['popularity']
@@ -39,7 +41,7 @@ class ApiExtractor:
         # get track features
         self.track_features = self.sp_connection.audio_features(tracks = self.track_uri)[0]
 
-        return [self.track_name, self.track_artists, self.track_popularity,
+        return [self.track_name, self.track_artists, self.track_id, self.track_popularity,
                 self.track_features['danceability'], self.track_features['valence'],
                 self.track_features['energy'], self.track_explicit, self.track_features['key'],
                 self.track_features['liveness'], self.track_features['loudness'],

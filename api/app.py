@@ -19,6 +19,8 @@ params = dict(
 
 if utext:
 
+    '''---'''
+
     res = requests.get(url, params).json()
 
     st.markdown('Sentiment: *' + str(res['sentiment']) + '* with a score of ' + str(round(res['score'], 2)))
@@ -27,8 +29,8 @@ if utext:
     surl2 = "https://open.spotify.com/embed/track/2Uf9WTBWMA8S9Lh3k3Rui6?si=7dfd2575e59e4264?utm_source=generator"
 
     """
+    ---
     Our recommendation for you:
-
     """
 
     components.iframe(surl1, height=100)

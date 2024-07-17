@@ -29,3 +29,16 @@ jupyterlab_server==2.16.1
 notebook==6.4.12
 notebook_shim==0.2.0
 traitlets==5.5.0
+
+#pickle files
+pickle
+
+#clean text
+re
+string
+nltk
+textblob
+unicodedata
+
+#api calls
+requests

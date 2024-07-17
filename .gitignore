@@ -6,6 +6,7 @@
 .python-version
 *.pyc
 **/build
+.cache
 
 # Ignore these macos generated files
 .DS_Store

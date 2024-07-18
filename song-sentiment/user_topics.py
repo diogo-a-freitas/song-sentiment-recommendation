@@ -6,11 +6,11 @@ from sklearn.decomposition import LatentDirichletAllocation
 import numpy as np
 
 #load lda model from picklefile // model was already trained on all twitter data and data is static
-with open('model_small/lda_model.pkl', 'rb') as pickle_file:
+with open('model_small/lda_model_first.pkl', 'rb') as pickle_file:
     lda_model = pickle.load(pickle_file)
 
 #load vectorizer from picklefile // model was already fitted on all twitter data
-with open('model_small/vectorizer.pkl', 'rb') as pickle_file:
+with open('model_small/vectorizer_first.pkl', 'rb') as pickle_file:
     vectorizer = pickle.load(pickle_file)
 
 #process the user input //applying vectorizing, LDA and cleaning function
@@ -38,3 +38,4 @@ def pre_process_user_input(sentence):
     return top_words_list
 
 user_input = pre_process_user_input('My day was stressfull however i am happy that the machine learning model is performing better than it was before!!!!')
+print(user_input)

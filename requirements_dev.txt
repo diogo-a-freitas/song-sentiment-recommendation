@@ -34,8 +34,8 @@ traitlets==5.5.0
 pickle
 
 #clean text
-re
-string
+#re
+#string
 nltk
 textblob
 unicodedata

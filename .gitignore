@@ -40,3 +40,4 @@ secrets.toml
 
 # User defined extras
 .cache
+notebooks/*.pkl

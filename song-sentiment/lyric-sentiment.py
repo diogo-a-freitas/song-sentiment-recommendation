@@ -64,6 +64,6 @@ def adding_sentiment_columns(new_lyrics_df):
 if __name__ == "__main__":
     # Example query
     query = "hello from the other side"
-    new_lyrics_df = search_lyrics(query)
+    new_lyrics_df = search_lyrics(query)[0]
     new_lyrics_df = adding_sentiment_columns(new_lyrics_df)
     print(new_lyrics_df)

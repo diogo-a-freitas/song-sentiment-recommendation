@@ -18,16 +18,18 @@ params = {'apikey': api_key,
 
 response = requests.get(url, params=params).json()
 
-#create lists of song details
-list_of_artists = []
-list_of_tracks = []
-list_of_track_ids = []
-list_of_lyrics = []
-list_of_artist_id = []
-list_of_album_names = []
-
 #function to get songs
 def search_lyrics(base_response):
+
+    #create lists of song details
+    list_of_artists = []
+    list_of_tracks = []
+    list_of_track_ids = []
+    list_of_lyrics = []
+    list_of_artist_id = []
+    list_of_album_names = []
+
+
     index = 0
     while index < len(response['message']['body']['track_list']):
 
@@ -54,15 +56,15 @@ def search_lyrics(base_response):
         list_of_lyrics.append(lyrics_snippet)
         index += 1
 
-    return list_of_artists, list_of_tracks, list_of_track_ids, list_of_lyrics
-
-search_lyrics(response)
-
-new_lyrics_df = pd.DataFrame({
+    #turn in dataframe
+    new_lyrics_df = pd.DataFrame({
                         'Artist_id': list_of_artist_id,
                         'Artist': list_of_artists,
                         'Track': list_of_tracks,
                         'Track_ID': list_of_track_ids,
                         'Album_Name': list_of_album_names,
-                        'Lyric_Snippet': list_of_lyrics,
-})
+                        'Lyric_Snippet': list_of_lyrics})
+
+    return new_lyrics_df, list_of_artists, list_of_tracks
+
+print(search_lyrics(response))

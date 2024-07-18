@@ -5,6 +5,7 @@ pandas
 transformers
 torch
 pytesseract
+scikit-learn
 
 # scikit-learn
 # tensorflow==2.15    # For both Intel and Apple silicon

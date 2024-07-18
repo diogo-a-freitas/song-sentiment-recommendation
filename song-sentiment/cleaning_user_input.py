@@ -5,8 +5,12 @@ import string
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
+import nltk
 from textblob import TextBlob
 import unicodedata
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 
 def preprocessing(sentence):

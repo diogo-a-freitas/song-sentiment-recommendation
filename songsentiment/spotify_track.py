@@ -1,10 +1,12 @@
 import os
 import time
+import pandas as pd
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
 class SpotifyApiExtractor:
+
     def __init__(self, se=None):
         '''
         Extractor class
@@ -41,8 +43,15 @@ class SpotifyApiExtractor:
         # get track features
         self.track_features = self.sp_connection.audio_features(tracks = self.track_uri)[0]
 
-        return [self.track_name, self.track_artists, self.track_id, self.track_popularity,
-                self.track_features['danceability'], self.track_features['valence'],
-                self.track_features['energy'], self.track_explicit, self.track_features['key'],
-                self.track_features['liveness'], self.track_features['loudness'],
-                self.track_features['speechiness'], self.track_features['tempo']]
+        return [self.track_name, self.track_artists, self.track_id,
+                self.track_features['danceability'], self.track_features['energy'],
+                self.track_features['valence'], self.track_features['tempo']]
+
+    def get_tracks_and_artists(self, titles, artists):
+
+        song_attrs = []
+
+        for title, artist in zip(titles, artists):
+            song_attrs.append(self.get_track_base_attrs(title, artist))
+
+        return pd.DataFrame(song_attrs)

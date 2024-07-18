@@ -31,11 +31,6 @@ models/
 *.joblib
 *.h5
 
-# Any pickle files
-*.pickle
-*.pckl
-*.pkl
-
 # Credentials (or files with potentially credentials inside)
 .env
 .env.yaml

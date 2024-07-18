@@ -5,6 +5,7 @@ from songsentiment.musixmatch_function import search_lyrics
 
 from songsentiment.lyric_sentiment import adding_sentiment_columns
 
+
 def predict_songs(text_user: str):
 
     top_words_list = pre_process_user_input(text_user)

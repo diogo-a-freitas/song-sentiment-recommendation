@@ -4,7 +4,7 @@ import time
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-class ApiExtractor:
+class SpotifyApiExtractor:
     def __init__(self, se=None):
         '''
         Extractor class

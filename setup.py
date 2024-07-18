@@ -16,7 +16,7 @@ if os.path.isfile('requirements_dev.txt'):
 
 
 setup(name='song-sentiment',
-      version="0.0.1",
+      version="0.0.2",
       description="Song sentiment recommendation",
       packages=['song-sentiment'],
       install_requires=requirements

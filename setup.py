@@ -15,15 +15,15 @@ if os.path.isfile('requirements_dev.txt'):
     requirements.extend([x.strip() for x in content if 'git+' not in x])
 
 
-setup(name='song-sentiment',
+setup(name='songsentiment',
       version="0.0.2",
       description="Song sentiment recommendation",
-      packages=['song-sentiment'],
-      install_requires=requirements
-      #packages=find_packages(),
+      packages=find_packages(),
+      install_requires=requirements,
+      #packages=['song-sentiment'],
       #test_suite='tests',
       # include_package_data: to install data from MANIFEST.in
-      #include_package_data=True,
+      include_package_data=True,
       # scripts=['scripts/packagename-run'],
-      #zip_safe=Fal
+      zip_safe=False
 )

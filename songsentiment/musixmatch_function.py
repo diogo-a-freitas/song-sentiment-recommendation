@@ -1,25 +1,12 @@
-from user_topics import user_input
+from songsentiment.user_topics import pre_process_user_input
 import requests
 import os
 import pandas as pd
 
 #
 
-url = 'https://api.musixmatch.com/ws/1.1/track.search'
-
-api_key= os.environ.get('MUSIXMATCH')
-
-params = {'apikey': api_key,
-         'q_lyrics': f"{user_input[0]}",
-         'f_has_lyrics': True,
-         's_track_rating': 'desc',
-         'quorum_factor': 0.9}
-
-
-response = requests.get(url, params=params).json()
-
 #function to get songs
-def search_lyrics(base_response):
+def search_lyrics(top_words):
 
     #create lists of song details
     list_of_artists = []
@@ -28,6 +15,19 @@ def search_lyrics(base_response):
     list_of_lyrics = []
     list_of_artist_id = []
     list_of_album_names = []
+
+    url = 'https://api.musixmatch.com/ws/1.1/track.search'
+
+    api_key= os.environ.get('MUSIXMATCH')
+
+    params = {'apikey': api_key,
+         'q_lyrics': f"{top_words}",
+         'f_has_lyrics': True,
+         's_track_rating': 'desc',
+         'quorum_factor': 0.9}
+
+
+    response = requests.get(url, params=params).json()
 
 
     index = 0
@@ -66,5 +66,3 @@ def search_lyrics(base_response):
                         'Lyric_Snippet': list_of_lyrics})
 
     return new_lyrics_df, list_of_artists, list_of_tracks
-
-print(search_lyrics(response))

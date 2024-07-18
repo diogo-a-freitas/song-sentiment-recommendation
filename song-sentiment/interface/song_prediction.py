@@ -1,2 +1,2 @@
 
-from song-sentiment.cleaning_user_input import preprocessing
+from songsentiment.cleaning_user_input import preprocessing

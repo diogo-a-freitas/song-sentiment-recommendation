@@ -15,7 +15,7 @@ if os.path.isfile('requirements_dev.txt'):
     requirements.extend([x.strip() for x in content if 'git+' not in x])
 
 
-setup(name='song-sentiment',
+setup(name='songsentiment',
       version="0.0.2",
       description="Song sentiment recommendation",
       packages=find_packages(),

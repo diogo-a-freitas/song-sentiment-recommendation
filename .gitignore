@@ -6,7 +6,6 @@
 .python-version
 *.pyc
 **/build
-.cache
 
 # Ignore these macos generated files
 .DS_Store
@@ -45,4 +44,4 @@ secrets.toml
 *.json
 
 # User defined extras
-# Complete to your desire
+.cache

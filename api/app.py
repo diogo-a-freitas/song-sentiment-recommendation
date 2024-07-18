@@ -26,7 +26,7 @@ if utext:
     st.markdown('Sentiment: *' + str(res['user_sentiment']['sentiment']) +
                 '* with a score of ' + str(round(res['user_sentiment']['score'], 2)))
 
-    st.markdown('Topics: ' + ', '.join(res['user_topics'][0]))
+    st.markdown('Topics: ' + ', '.join(res['user_topics']))
 
     """
     ---
@@ -36,5 +36,5 @@ if utext:
     surl1 = "https://open.spotify.com/embed/track/6Y4rniIxibegzsg8cdWAWV?utm_source=generator"
     surl2 = "https://open.spotify.com/embed/track/2Uf9WTBWMA8S9Lh3k3Rui6?si=7dfd2575e59e4264?utm_source=generator"
 
-    components.iframe(surl1, height=100)
-    components.iframe(surl2, height=100)
+    components.iframe(surl1, height=80)
+    components.iframe(surl2, height=80)

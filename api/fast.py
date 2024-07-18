@@ -6,6 +6,8 @@ from transformers import pipeline
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from songsentiment.interface.song_prediction import predict_songs
+
 app = FastAPI()
 
 app.state.user_sentiment = pipeline(model= "cardiffnlp/twitter-roberta-base-sentiment-latest")
@@ -29,7 +31,11 @@ def get_predict(text: str):
 
     prediction = app.state.user_sentiment(text)[0]
 
+    top_words_list = predict_songs(text)
+
     return {
-        'sentiment': prediction['label'],
-        'score': prediction['score']
+        'user_sentiment':{'sentiment': prediction['label'],
+                          'score': prediction['score']},
+
+        'user_topics': top_words_list
     }

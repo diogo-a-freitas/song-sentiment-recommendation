@@ -4,16 +4,18 @@ from songsentiment.lyric_sentiment import adding_sentiment_columns
 from songsentiment.spotify_track import SpotifyApiExtractor
 from songsentiment.song_clusters import cluster_prediction
 
+import pandas as pd
+
 from transformers import pipeline
 
 pipe = pipeline(model= "cardiffnlp/twitter-roberta-base-sentiment-latest")
 
 
-def get_user_sentiment(text: str):
-    return pipe(text)[0]
+def get_user_sentiment(text_user: str):
+    return pipe(text_user)[0]
 
 
-def predict_songs(text_user: str):
+def predict_topics(text_user: str):
 
     top_words_list = pre_process_user_input(text_user)
     return top_words_list
@@ -38,23 +40,40 @@ def spotify_features(list_tracks, list_artists):
     songs_df = spotify.get_tracks_and_artists(list_tracks, list_artists)
     return songs_df
 
-mmatch = musixmatch(['know', 'morning', 'better', 'good', 'good morning'])
+#mmatch = musixmatch(['know', 'morning', 'better', 'good', 'good morning'])
+#list_tracks  = clean_lyrics(mmatch)['Track']
+#list_artists = clean_lyrics(mmatch)['Artist']
+#print(spotify_features(list_tracks, list_artists))
 
-list_tracks  = clean_lyrics(mmatch)['Track']
-list_artists = clean_lyrics(mmatch)['Artist']
-
-print(spotify_features(list_tracks, list_artists))
-
-
-#spotify_features = SpotifyApiExtractor().get_tracks_and_artists(['Gasoline', 'Espresso'], ['The Weeknd', 'Sabrina Carpenter'])
-#X = spotify_features.select_dtypes(exclude='object')
 
 def kmeans(spotify_data):
 
-    #spotify_features = SpotifyApiExtractor().get_tracks_and_artists(['Gasoline', 'Espresso'], ['The Weeknd', 'Sabrina Carpenter'])
+    X = spotify_data.select_dtypes(exclude='object')
 
-    spotify_features['cluster'] = cluster_prediction(spotify_data)
+    spotify_data['cluster'] = cluster_prediction(X)
 
-    return spotify_features
+    return spotify_data
 
+#spotify_features = spotify_features(list_tracks, list_artists)
+#X = spotify_features.select_dtypes(exclude='object')
 #print(kmeans(X))
+
+
+def predict_songs(text: str):
+
+    user_sent = get_user_sentiment(text)
+    top_words_list = predict_topics(text)
+
+    mmatch = musixmatch(top_words_list)
+    cleaned_lyrics = clean_lyrics(mmatch)
+
+    list_tracks  = cleaned_lyrics['Track']
+    list_artists = cleaned_lyrics['Artist']
+
+    songs_df = spotify_features(list_tracks, list_artists)
+
+    final_df = kmeans(songs_df)
+
+    return (final_df, user_sent, top_words_list)
+
+#print(predict_songs("This data frame is great"))

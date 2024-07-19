@@ -55,9 +55,8 @@ def get_sentiment_label(text):
     return result['label']
 
 
-def adding_sentiment_columns():
+def adding_sentiment_columns(new_lyrics_df):
     """Applying lyric sentiment to each song"""
-    new_lyrics_df = search_lyrics()
     new_lyrics_df['cleaned_lyrics'] = new_lyrics_df['Lyric_Snippet'].apply(preprocessing)
     new_lyrics_df["sentiment_score"] = new_lyrics_df["cleaned_lyrics"].apply(get_sentiment_score)
     new_lyrics_df["sentiment_label"] = new_lyrics_df["cleaned_lyrics"].apply(get_sentiment_label)

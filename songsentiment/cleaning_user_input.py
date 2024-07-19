@@ -5,12 +5,8 @@ import string
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
-<<<<<<< HEAD:song-sentiment/cleaning_user_input.py
-#from textblob import TextBlob
-=======
 import nltk
 from textblob import TextBlob
->>>>>>> master:songsentiment/cleaning_user_input.py
 import unicodedata
 nltk.download('punkt')
 nltk.download('stopwords')

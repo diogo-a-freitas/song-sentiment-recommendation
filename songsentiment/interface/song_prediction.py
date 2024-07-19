@@ -82,4 +82,4 @@ def predict_songs(text: str):
 
     return (final_df, user_sent, top_words_list)
 
-#print(predict_songs("This data frame is great"))
+print(predict_songs("This data frame is great"))

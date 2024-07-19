@@ -33,11 +33,11 @@ def clean_lyrics(new_lyrics_df):
     return cleaned_lyrics_df
 
 
-def spotify_features(list_tracks, list_artists):
+def spotify_features(list_tracks, list_artists, list_slabel, list_sscore):
 
     spotify = SpotifyApiExtractor()
 
-    songs_df = spotify.get_tracks_and_artists(list_tracks, list_artists)
+    songs_df = spotify.get_tracks_and_artists(list_tracks, list_artists, list_slabel, list_sscore)
     return songs_df
 
 #mmatch = musixmatch(['know', 'morning', 'better', 'good', 'good morning'])
@@ -49,6 +49,7 @@ def spotify_features(list_tracks, list_artists):
 def kmeans(spotify_data):
 
     X = spotify_data.select_dtypes(exclude='object')
+    X = X.drop(columns=['sentiment_score'])
 
     spotify_data['cluster'] = cluster_prediction(X)
 
@@ -70,9 +71,14 @@ def predict_songs(text: str):
     list_tracks  = cleaned_lyrics['Track']
     list_artists = cleaned_lyrics['Artist']
 
-    songs_df = spotify_features(list_tracks, list_artists)
+    list_slabel = cleaned_lyrics['sentiment_label']
+    list_sscore = cleaned_lyrics['sentiment_score']
+
+    songs_df = spotify_features(list_tracks, list_artists, list_slabel, list_sscore)
 
     final_df = kmeans(songs_df)
+
+    #merged_df = pd.merge(final_df, cleaned_lyrics, on=['key1', 'key2'], how='inner')
 
     return (final_df, user_sent, top_words_list)
 

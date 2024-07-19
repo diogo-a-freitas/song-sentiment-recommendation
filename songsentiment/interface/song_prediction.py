@@ -4,6 +4,14 @@ from songsentiment.lyric_sentiment import adding_sentiment_columns
 from songsentiment.spotify_track import SpotifyApiExtractor
 from songsentiment.song_clusters import cluster_prediction
 
+from transformers import pipeline
+
+pipe = pipeline(model= "cardiffnlp/twitter-roberta-base-sentiment-latest")
+
+
+def get_user_sentiment(text: str):
+    return pipe(text)[0]
+
 
 def predict_songs(text_user: str):
 

@@ -16,14 +16,13 @@ if os.path.isfile('requirements_dev.txt'):
 
 
 setup(name='songsentiment',
-      version="0.0.2",
+      version="0.0.3",
       description="Song sentiment recommendation",
       packages=find_packages(),
       install_requires=requirements,
-      #packages=['song-sentiment'],
-      #test_suite='tests',
       # include_package_data: to install data from MANIFEST.in
       include_package_data=True,
-      # scripts=['scripts/packagename-run'],
+      #test_suite='tests',
+      #scripts=['scripts/packagename-run'],
       zip_safe=False
 )

@@ -7,8 +7,10 @@ from songsentiment.lyric_sentiment import adding_sentiment_columns
 
 from songsentiment.spotify_track import SpotifyApiExtractor
 
+from songsentiment.song_clusters import cluster_prediction
 
-def predict_songs(text_user: str):
+
+"""def predict_songs(text_user: str):
 
     top_words_list = pre_process_user_input(text_user)
 
@@ -36,8 +38,21 @@ def spotify_features(list_of_tracks, list_of_artists):
 
     spotify_extractor = SpotifyApiExtractor()
 
-    songs_df = spotify_extractor.get_tracks_and_artists(list(list_of_tracks), list(list_of_artists))
+    songs_df = spotify_extractor.get_tracks_and_artists(list_of_tracks, list_of_artists)
 
-    return songs_df
+    return songs_df"""
 
-print(spotify_features(list_spotify_tracks, list_spotify_artists))
+#print(spotify_features(list_spotify_tracks, list_spotify_artists))
+
+spotify_features = SpotifyApiExtractor().get_tracks_and_artists(['Gasoline', 'Espresso'], ['The Weeknd', 'Sabrina Carpenter'])
+X = spotify_features.select_dtypes(exclude='object')
+
+def kmeans(spotify_data):
+
+    #spotify_features = SpotifyApiExtractor().get_tracks_and_artists(['Gasoline', 'Espresso'], ['The Weeknd', 'Sabrina Carpenter'])
+
+    spotify_features['cluster'] = cluster_prediction(spotify_data)
+
+    return spotify_features
+
+print(kmeans(X))

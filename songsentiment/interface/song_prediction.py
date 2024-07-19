@@ -4,6 +4,14 @@ from songsentiment.lyric_sentiment import adding_sentiment_columns
 from songsentiment.spotify_track import SpotifyApiExtractor
 from songsentiment.song_clusters import cluster_prediction
 
+from transformers import pipeline
+
+pipe = pipeline(model= "cardiffnlp/twitter-roberta-base-sentiment-latest")
+
+
+def get_user_sentiment(text: str):
+    return pipe(text)[0]
+
 
 def predict_songs(text_user: str):
 
@@ -27,7 +35,7 @@ def spotify_features(list_tracks, list_artists):
 
     spotify = SpotifyApiExtractor()
 
-    songs_df = spotify.get_tracks_and_artists(list(list_tracks), list(list_artists))
+    songs_df = spotify.get_tracks_and_artists(list_tracks, list_artists)
     return songs_df
 
 mmatch = musixmatch(['know', 'morning', 'better', 'good', 'good morning'])

@@ -19,6 +19,7 @@ class SpotifyApiExtractor:
         self.search_limit = 10
         self.se = se
 
+
     def get_track_base_attrs(self, title, artist):
         '''
         Function that returns the basic features of a desired song
@@ -50,6 +51,7 @@ class SpotifyApiExtractor:
                 self.track_features['danceability'], self.track_features['energy'],
                 self.track_features['valence'], self.track_features['tempo']]
 
+
     def get_tracks_and_artists(self, titles, artists):
 
         songs_attrs = []
@@ -64,8 +66,3 @@ class SpotifyApiExtractor:
         #time.sleep(1)
 
         return pd.DataFrame(songs_attrs, columns=['Track', 'Artists', 'ID', 'Danceability', 'Energy', 'Valence', 'Tempo'])
-
-
-#print(SpotifyApiExtractor().get_track_base_attrs('Gasoline', 'The Weeknd'))
-
-#print(SpotifyApiExtractor().get_tracks_and_artists(['Gasoline', 'Espresso'], ['The Weeknd', 'Sabrina Carpenter']))

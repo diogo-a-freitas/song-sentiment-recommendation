@@ -22,12 +22,6 @@ def clean_lyrics(new_lyrics_df):
     return cleaned_lyrics_df
 
 
-list_spotify_artists = clean_lyrics(musixmatch(['know', 'morning', 'better', 'good', 'good morning']))['Artist']
-list_spotify_tracks  = clean_lyrics(musixmatch(['know', 'morning', 'better', 'good', 'good morning']))['Track']
-
-#print(list_spotify_artists)
-#print(list_spotify_tracks)
-
 def spotify_features(list_tracks, list_artists):
 
     spotify = SpotifyApiExtractor()
@@ -36,4 +30,9 @@ def spotify_features(list_tracks, list_artists):
     return songs_df
 
 
-print(spotify_features(list_spotify_tracks, list_spotify_artists))
+mmatch = musixmatch(['know', 'morning', 'better', 'good', 'good morning'])
+
+list_tracks  = clean_lyrics(mmatch)['Track']
+list_artists = clean_lyrics(mmatch)['Artist']
+
+print(spotify_features(list_tracks, list_artists))

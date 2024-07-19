@@ -10,7 +10,7 @@ from songsentiment.interface.song_prediction import predict_songs
 
 app = FastAPI()
 
-app.state.user_sentiment = pipeline(model= "cardiffnlp/twitter-roberta-base-sentiment-latest")
+#app.state.user_sentiment = pipeline(model= "cardiffnlp/twitter-roberta-base-sentiment-latest")
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,13 +29,10 @@ def root():
 @app.get("/predict")
 def get_predict(text: str):
 
-    prediction = app.state.user_sentiment(text)[0]
-
-    top_words_list = predict_songs(text)
+    final_df, user_sent, top_words_list = predict_songs(text)
 
     return {
-        'user_sentiment':{'sentiment': prediction['label'],
-                          'score': prediction['score']},
-
-        'user_topics': top_words_list
+        'user_sentiment': user_sent,
+        'user_topics':    top_words_list,
+        'songs':          final_df.to_dict(orient='records')
     }

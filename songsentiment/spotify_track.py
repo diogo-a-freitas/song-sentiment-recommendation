@@ -52,9 +52,13 @@ class SpotifyApiExtractor:
                 self.track_features['valence'], self.track_features['tempo']]
 
 
-    def get_tracks_and_artists(self, titles, artists):
+    def get_tracks_and_artists(self, titles, artists, list_slabel, list_sscore):
 
         songs_attrs = []
+        list2_slabel = []
+        list2_sscore = []
+
+        i = 0
 
         for title, artist in zip(titles, artists):
 
@@ -62,7 +66,16 @@ class SpotifyApiExtractor:
 
             if attrs is not None:
                 songs_attrs.append(attrs)
+                list2_slabel.append(list_slabel[i])
+                list2_sscore.append(list_sscore[i])
+
+            i += 1
 
         #time.sleep(1)
 
-        return pd.DataFrame(songs_attrs, columns=['Track', 'Artists', 'ID', 'Danceability', 'Energy', 'Valence', 'Tempo'])
+        df = pd.DataFrame(songs_attrs, columns=['track', 'artists', 'id', 'danceability', 'energy', 'valence', 'tempo'])
+
+        df['sentiment_label'] = list2_slabel
+        df['sentiment_score'] = list2_sscore
+
+        return df

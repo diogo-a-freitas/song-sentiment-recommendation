@@ -40,15 +40,17 @@ def preprocessing(text):
     text = lemmatize(text)
     return text
 
+
+pipe = pipeline("text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
+
+
 def get_sentiment_score(text):
     """Gets the sentiment score"""
-    pipe = pipeline("text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
     result = pipe(text[:514])[0]
     return result['score']
 
 def get_sentiment_label(text):
     """Gets the sentiment label"""
-    pipe = pipeline("text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
     result = pipe(text[:514])[0]
     return result['label']
 

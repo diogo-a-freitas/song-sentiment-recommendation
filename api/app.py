@@ -37,6 +37,8 @@ if utext:
         url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
 
         components.iframe(url, height=80)
+        st.markdown('Song cluster: ' + str(song['cluster']))
+        st.markdown('Song valence: ' + str(song['valence']))
 
 
     # surl1 = "https://open.spotify.com/embed/track/6Y4rniIxibegzsg8cdWAWV?utm_source=generator"

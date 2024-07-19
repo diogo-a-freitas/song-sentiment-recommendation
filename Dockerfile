@@ -16,7 +16,8 @@ FROM python:3.10
 
 
 # Copy everything we need into the image
-COPY packagename packagename
+COPY songsentiment songsentiment
+COPY model_small model_small
 COPY api api
 COPY scripts scripts
 COPY requirements.txt requirements_docker.txt

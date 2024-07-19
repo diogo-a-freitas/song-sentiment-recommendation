@@ -5,15 +5,15 @@ import string
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
-from textblob import TextBlob
+#from textblob import TextBlob
 import unicodedata
 
 
 def preprocessing(sentence):
 
     #correct grammar
-    blob = TextBlob(sentence)
-    sentence = str(blob.correct())
+    #blob = TextBlob(sentence)
+   # sentence = str(blob.correct())
 
     #remove white spaces
     sentence = sentence.strip()

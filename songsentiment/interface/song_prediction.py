@@ -27,7 +27,7 @@ def spotify_features(list_tracks, list_artists):
 
     spotify = SpotifyApiExtractor()
 
-    songs_df = spotify.get_tracks_and_artists(list(list_tracks), list(list_artists))
+    songs_df = spotify.get_tracks_and_artists(list_tracks, list_artists)
     return songs_df
 
 mmatch = musixmatch(['know', 'morning', 'better', 'good', 'good morning'])

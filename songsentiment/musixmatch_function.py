@@ -65,4 +65,4 @@ def search_lyrics(top_words):
                         'Album_Name': list_of_album_names,
                         'Lyric_Snippet': list_of_lyrics})
 
-    return new_lyrics_df, list_of_artists, list_of_tracks
+    return new_lyrics_df

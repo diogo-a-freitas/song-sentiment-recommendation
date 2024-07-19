@@ -54,4 +54,11 @@ class SpotifyApiExtractor:
         for title, artist in zip(titles, artists):
             song_attrs.append(self.get_track_base_attrs(title, artist))
 
+        time.sleep(1)
+
         return pd.DataFrame(song_attrs)
+
+
+print(SpotifyApiExtractor().get_track_base_attrs('Gasoline', 'The Weeknd'))
+
+print(SpotifyApiExtractor().get_tracks_and_artists(['Gasoline', 'Espresso'], ['The Weeknd', 'Sabrina Carpenter']))

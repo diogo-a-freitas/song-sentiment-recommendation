@@ -16,9 +16,9 @@ def predict_songs(text_user: str):
 
 def musixmatch(top_words_list):
 
-    new_lyrics_df, list_of_artists, list_of_tracks = search_lyrics(top_words_list)
+    new_lyrics_df = search_lyrics(top_words_list)
 
-    return new_lyrics_df, list_of_artists, list_of_tracks
+    return new_lyrics_df
 
 def clean_lyrics(new_lyrics_df):
 
@@ -28,14 +28,16 @@ def clean_lyrics(new_lyrics_df):
 #print(clean_lyrics(musixmatch(['know', 'morning', 'better', 'good', 'good morning'])[0]))
 
 
+list_spotify_artists = clean_lyrics(musixmatch(['know', 'morning', 'better', 'good', 'good morning']))['Artist']
+
+list_spotify_tracks = clean_lyrics(musixmatch(['know', 'morning', 'better', 'good', 'good morning']))['Track']
+
 def spotify_features(list_of_tracks, list_of_artists):
 
     spotify_extractor = SpotifyApiExtractor()
 
-    list_spotify_artists = search_lyrics(top_words_list)
-
-    list_spotify_tracks = list_of_tracks
-
-    songs_df = spotify_extractor.get_tracks_and_artists(list_of_tracks, list_of_artists)
+    songs_df = spotify_extractor.get_tracks_and_artists(list(list_of_tracks), list(list_of_artists))
 
     return songs_df
+
+print(spotify_features(list_spotify_tracks, list_spotify_artists))

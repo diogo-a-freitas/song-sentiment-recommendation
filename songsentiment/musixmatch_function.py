@@ -1,33 +1,35 @@
-from user_topics import user_input
+from songsentiment.user_topics import pre_process_user_input
 import requests
 import os
 import pandas as pd
 
 #
 
-url = 'https://api.musixmatch.com/ws/1.1/track.search'
+#function to get songs
+def search_lyrics(top_words):
 
-api_key= os.environ.get('MUSIXMATCH')
+    #create lists of song details
+    list_of_artists = []
+    list_of_tracks = []
+    list_of_track_ids = []
+    list_of_lyrics = []
+    list_of_artist_id = []
+    list_of_album_names = []
 
-params = {'apikey': api_key,
-         'q_lyrics': f"{user_input[0]}",
+    url = 'https://api.musixmatch.com/ws/1.1/track.search'
+
+    api_key= os.environ.get('MUSIXMATCH')
+
+    params = {'apikey': api_key,
+         'q_lyrics': f"{top_words}",
          'f_has_lyrics': True,
          's_track_rating': 'desc',
          'quorum_factor': 0.9}
 
 
-response = requests.get(url, params=params).json()
+    response = requests.get(url, params=params).json()
 
-#create lists of song details
-list_of_artists = []
-list_of_tracks = []
-list_of_track_ids = []
-list_of_lyrics = []
-list_of_artist_id = []
-list_of_album_names = []
 
-#function to get songs
-def search_lyrics(base_response):
     index = 0
     while index < len(response['message']['body']['track_list']):
 
@@ -54,15 +56,13 @@ def search_lyrics(base_response):
         list_of_lyrics.append(lyrics_snippet)
         index += 1
 
-    return list_of_artists, list_of_tracks, list_of_track_ids, list_of_lyrics
-
-search_lyrics(response)
-
-new_lyrics_df = pd.DataFrame({
+    #turn in dataframe
+    new_lyrics_df = pd.DataFrame({
                         'Artist_id': list_of_artist_id,
                         'Artist': list_of_artists,
                         'Track': list_of_tracks,
                         'Track_ID': list_of_track_ids,
                         'Album_Name': list_of_album_names,
-                        'Lyric_Snippet': list_of_lyrics,
-})
+                        'Lyric_Snippet': list_of_lyrics})
+
+    return new_lyrics_df

@@ -1,10 +1,12 @@
 import os
 import time
+import pandas as pd
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-class ApiExtractor:
+class SpotifyApiExtractor:
+
     def __init__(self, se=None):
         '''
         Extractor class
@@ -17,6 +19,7 @@ class ApiExtractor:
         self.search_limit = 10
         self.se = se
 
+
     def get_track_base_attrs(self, title, artist):
         '''
         Function that returns the basic features of a desired song
@@ -26,10 +29,13 @@ class ApiExtractor:
             q="artist:" + artist + " track:" + title,
             type="track",
             limit=1)
-        print(self.ta_response)
+        #print(self.ta_response)
 
         # parse attributes from track
-        self.track = self.ta_response['tracks']['items'][0]
+        if len(self.ta_response['tracks']['items']) == 0:
+            return None
+        else:
+            self.track = self.ta_response['tracks']['items'][0]
 
         self.track_id = self.track['id']
         self.track_name = self.track['name']
@@ -41,8 +47,22 @@ class ApiExtractor:
         # get track features
         self.track_features = self.sp_connection.audio_features(tracks = self.track_uri)[0]
 
-        return [self.track_name, self.track_artists, self.track_id, self.track_popularity,
-                self.track_features['danceability'], self.track_features['valence'],
-                self.track_features['energy'], self.track_explicit, self.track_features['key'],
-                self.track_features['liveness'], self.track_features['loudness'],
-                self.track_features['speechiness'], self.track_features['tempo']]
+        return [self.track_name, self.track_artists, self.track_id,
+                self.track_features['danceability'], self.track_features['energy'],
+                self.track_features['valence'], self.track_features['tempo']]
+
+
+    def get_tracks_and_artists(self, titles, artists):
+
+        songs_attrs = []
+
+        for title, artist in zip(titles, artists):
+
+            attrs = self.get_track_base_attrs(title, artist)
+
+            if attrs is not None:
+                songs_attrs.append(attrs)
+
+        #time.sleep(1)
+
+        return pd.DataFrame(songs_attrs, columns=['Track', 'Artists', 'ID', 'Danceability', 'Energy', 'Valence', 'Tempo'])

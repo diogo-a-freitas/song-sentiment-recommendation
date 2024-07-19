@@ -4,9 +4,8 @@ import re
 import string
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
-import requests
 from transformers import pipeline
-from musixmatch import search_lyrics
+from songsentiment.musixmatch_function import search_lyrics
 
 def clean_lyrics(text):
     """Cleans lyrics from MusicMatchAPI"""
@@ -41,15 +40,17 @@ def preprocessing(text):
     text = lemmatize(text)
     return text
 
+
+pipe = pipeline("text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
+
+
 def get_sentiment_score(text):
     """Gets the sentiment score"""
-    pipe = pipeline("text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
     result = pipe(text[:514])[0]
     return result['score']
 
 def get_sentiment_label(text):
     """Gets the sentiment label"""
-    pipe = pipeline("text-classification", model="cardiffnlp/twitter-roberta-base-sentiment-latest")
     result = pipe(text[:514])[0]
     return result['label']
 
@@ -61,10 +62,3 @@ def adding_sentiment_columns():
     new_lyrics_df["sentiment_score"] = new_lyrics_df["cleaned_lyrics"].apply(get_sentiment_score)
     new_lyrics_df["sentiment_label"] = new_lyrics_df["cleaned_lyrics"].apply(get_sentiment_label)
     return new_lyrics_df
-
-if __name__ == "__main__":
-    # Example query
-    query = "hello from the other side"
-    new_lyrics_df = search_lyrics(query)[0]
-    new_lyrics_df = adding_sentiment_columns(new_lyrics_df)
-    print(new_lyrics_df)

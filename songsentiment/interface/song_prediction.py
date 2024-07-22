@@ -78,8 +78,6 @@ def predict_songs(text: str):
 
     final_df = kmeans(songs_df)
 
-    #merged_df = pd.merge(final_df, cleaned_lyrics, on=['key1', 'key2'], how='inner')
-
     return (final_df, user_sent, top_words_list)
 
-print(predict_songs("This data frame is great"))
+# print(predict_songs("This data frame is great"))

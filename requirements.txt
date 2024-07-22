@@ -15,5 +15,10 @@ python-dotenv
 
 fastapi
 uvicorn
+requests
+
+#clean text
+nltk
+textblob
 
 spotipy

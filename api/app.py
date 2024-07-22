@@ -45,13 +45,10 @@ else:
 
             components.iframe(url, height=80)
 
-            st.markdown('Song cluster: ' + str(song['cluster']))
-            st.markdown('Song valence: ' + str(song['valence']))
-            st.markdown('Song Sentiment Score: ' + str(song['sentiment_score']))
-            st.markdown('Song Sentiment Score: ' + str(song['sentiment_label']))
-
-        #elif res['user_sentiment']['label'] == song['sentiment_label']:
-            #pass
+            st.markdown('Song cluster: '   + str(song['cluster']))
+            st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+            st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+            st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
 
         else:
             pass

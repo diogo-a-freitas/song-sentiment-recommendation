@@ -29,6 +29,7 @@ COPY setup.py setup.py
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements_docker.txt
 RUN pip install .
+RUN python -m nltk.downloader punkt stopwords wordnet
 
 # Make directories that we need, but that are not included in the COPY
 RUN mkdir /raw_data

@@ -1,9 +1,11 @@
 from songsentiment.user_topics import pre_process_user_input
+
 import requests
 import os
 import pandas as pd
 
-#
+# from musixmatch import Musixmatch
+
 
 #function to get songs
 def search_lyrics(top_words):
@@ -21,12 +23,11 @@ def search_lyrics(top_words):
     api_key= os.environ.get('MUSIXMATCH')
 
     params = {'apikey': api_key,
-         'q_lyrics': f"{top_words}",
-         'f_has_lyrics': True,
-         's_track_rating': 'desc',
-         'quorum_factor': 0.9}
-         #'page_size': 50}
-
+              'q_lyrics': ' '.join(top_words),
+              'f_has_lyrics': True,
+              's_track_rating': 'desc',
+              'quorum_factor': 0.8,
+              'page_size': 20}
 
     response = requests.get(url, params=params).json()
 
@@ -67,3 +68,6 @@ def search_lyrics(top_words):
                         'Lyric_Snippet': list_of_lyrics})
 
     return new_lyrics_df
+
+
+#print(search_lyrics('night, last, job, cake, woot'))

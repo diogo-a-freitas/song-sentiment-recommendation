@@ -21,8 +21,12 @@ st.markdown('''We would love to know how your day is going so far! Please tell u
 
 #Input text box
 with st.form("my_form"):
+
     utext  = st.text_area(max_chars=140, placeholder='Please write your massage here', label='form', label_visibility='hidden')
     st.caption('Please write us a message above 50 and below 140 characters')
+
+    options = None
+
     if len(utext) == 0:
         pass
     elif len(utext) < 20 and len(utext) != 0:

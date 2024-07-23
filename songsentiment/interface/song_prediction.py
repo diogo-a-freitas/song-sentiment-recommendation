@@ -15,9 +15,9 @@ def get_user_sentiment(text_user: str):
     return pipe(text_user)[0]
 
 
-def predict_topics(text_user: str):
+def predict_topics(text_user: str, reverse_order: bool):
 
-    top_words_list = pre_process_user_input(text_user)
+    top_words_list = pre_process_user_input(text_user, reverse_order)
     return top_words_list
 
 
@@ -60,10 +60,10 @@ def kmeans(spotify_data):
 #print(kmeans(X))
 
 
-def predict_songs(text: str):
+def predict_songs(text: str, reverse_order: bool):
 
     user_sent = get_user_sentiment(text)
-    top_words_list = predict_topics(text)
+    top_words_list = predict_topics(text, reverse_order)
 
     mmatch = musixmatch(top_words_list)
     cleaned_lyrics = clean_lyrics(mmatch)
@@ -80,4 +80,4 @@ def predict_songs(text: str):
 
     return (final_df, user_sent, top_words_list)
 
-# print(predict_songs("This data frame is great"))
+#print(predict_songs("This data frame is great", True))

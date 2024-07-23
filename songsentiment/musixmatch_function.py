@@ -23,15 +23,12 @@ def search_lyrics(top_words):
     api_key= os.environ.get('MUSIXMATCH')
 
     params = {'apikey': api_key,
-         'q_lyrics': f"{top_words}",
+         'q_lyrics': ' '.join(top_words),
          'f_has_lyrics': True,
          's_track_rating': 'desc',
-         'quorum_factor': 0.9}
+         'quorum_factor': 0.8}
 
     response = requests.get(url, params=params).json()
-
-    print(f"{top_words}")
-    # print(' '.join(top_words))
 
     # headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0"}
 

@@ -41,3 +41,6 @@ secrets.toml
 # User defined extras
 .cache
 notebooks/*.pkl
+
+notebooks/Final_Notebook_scores_new_models (2) (1).ipynb
+notebooks/Final_Notebook_scores_new_models.ipynb

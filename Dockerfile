@@ -3,10 +3,10 @@
 #      a slim or tensorflow base
 
 #      Standard version
-FROM python:3.10
+# FROM python:3.10
 
 #      Slim version
-# FROM python:3.10-slim
+FROM python:3.10-slim
 
 #      Tensorflow version
 # FROM tensorflow/tensorflow:2.13.0
@@ -29,6 +29,7 @@ COPY setup.py setup.py
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements_docker.txt
 RUN pip install .
+RUN python -m nltk.downloader punkt stopwords wordnet
 
 # Make directories that we need, but that are not included in the COPY
 RUN mkdir /raw_data

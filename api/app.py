@@ -204,29 +204,14 @@ else:
                 "Listen to songs that don't match the topics we discovered from your message and improve your mood?"])
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    #else:
-        #pass
-
-        #st.markdown('Topics: ' + ', '.join(res['user_topics']))
+    st.markdown('Topics: ' + ', '.join(res['user_topics']))
 
     """
     ---
     Our recommendation for you:
     """
 
-    """for song in res['songs']:
+    for song in res['songs']:
 
         if res['user_sentiment']['label'] == song['sentiment_label']:
 
@@ -243,4 +228,4 @@ else:
             pass
 
         else:
-            pass"""
+            pass

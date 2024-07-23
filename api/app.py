@@ -206,7 +206,9 @@ with st.form("my_form"):
             elif song['sentiment_label'] == 'positive' and\
                  options == "match the topics we discovered and improve your mood?":
 
-                pass
+                url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
+
+                components.iframe(url, height=80)
 
             elif options == "don't match the topics we discovered and improve your mood?":
                 pass

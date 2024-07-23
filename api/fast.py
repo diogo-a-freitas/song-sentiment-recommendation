@@ -27,9 +27,9 @@ def root():
     }
 
 @app.get("/predict")
-def get_predict(text: str):
+def get_predict(text: str, reverse_order: bool):
 
-    final_df, user_sent, top_words_list = predict_songs(text)
+    final_df, user_sent, top_words_list = predict_songs(text, reverse_order)
 
     return {
         'user_sentiment': user_sent,

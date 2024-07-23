@@ -29,6 +29,8 @@ def search_lyrics(top_words):
 
     response = requests.get(url, params=params).json()
 
+    print(response)
+
 
     index = 0
     while index < len(response['message']['body']['track_list']):
@@ -66,3 +68,6 @@ def search_lyrics(top_words):
                         'Lyric_Snippet': list_of_lyrics})
 
     return new_lyrics_df
+
+
+#print(search_lyrics('night, last, job, cake, woot'))

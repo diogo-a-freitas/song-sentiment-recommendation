@@ -21,7 +21,7 @@ utext  = st.text_area(max_chars=140, placeholder='Please write your massage here
 
 st.caption('Please write us a message above 50 and below 140 characters')
 
-with open("styles.css") as f:
+with open("api/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
@@ -60,21 +60,12 @@ else:
 
     sentiment_int = sentiment_map.get(sentiment_label)
 
-    if res.text.strip():  # Ensure response is not empty
-        try:
-            data = res.json()
-        except ValueError as e:
-            print(f"Error decoding JSON: {e}")
-    else:
-        print("Empty response received")
-
-
 
     #if sentiment is negative:
     if sentiment_label == 'positive':
         color_classes = ['thermometer-red', 'thermometer-yellow', 'thermometer-green']
         emoji_classes = ['emoji-green', 'emoji-yellow', 'emoji-red']
-        emojis = ['😔', '😶', ':grin:']
+        emojis = ['😔', '😶', '😂']
         emoji_styles = [
             "display: none;",  # For 'negative'
             "display: none;",  # For 'neutral'
@@ -83,7 +74,7 @@ else:
     elif sentiment_label == 'neutral':
         color_classes = ['thermometer-red', 'thermometer-yellow', 'thermometer-green']
         emoji_classes = ['emoji-yellow', 'emoji-green', 'emoji-red']
-        emojis = ['😔', '😶', ':grin:']
+        emojis = ['😔', '😶', '😂']
         emoji_styles = [
             "display: none;",  # For 'negative'
             "display: block;",  # For 'neutral'
@@ -92,7 +83,7 @@ else:
     elif sentiment_label == 'negative':
         color_classes = ['thermometer-red', 'thermometer-yellow', 'thermometer-green']
         emoji_classes = ['emoji-red', 'emoji-yellow', 'emoji-green']
-        emojis = ['😔', '😶', ':grin:']
+        emojis = ['😔', '😶', '😂']
         emoji_styles = [
             "display: block;",  # For 'negative'
             "display: none;",   # For 'neutral'
@@ -102,7 +93,7 @@ else:
         # Default case (in case of unexpected value)
         color_classes = ['thermometer-red', 'thermometer-yellow', 'thermometer-green']
         emoji_classes = ['emoji-yellow', 'emoji-green', 'emoji-red']
-        emojis = ['😔', '😶', '🥳']
+        emojis = ['😔', '😶', '😂']
         emoji_styles = [
             "display: none;",
             "display: none;",
@@ -112,7 +103,7 @@ else:
     # Display the thermometer with emojis
     st.markdown(f"""
         <style>
-            @import url('https://path-to-your-css-file/styles.css');
+            @import url('api/styles.css');
         </style>
         <div class="thermometer-container">
             <div class="thermometer-section {color_classes[0]}" style="width: 33.33%;">

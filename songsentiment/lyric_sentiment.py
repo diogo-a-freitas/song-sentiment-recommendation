@@ -1,12 +1,14 @@
-# Imports
 import pandas as pd
+import numpy as np
+
 import re
 import string
+
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from transformers import pipeline
-from songsentiment.musixmatch_function import search_lyrics
-import numpy as np
+from songsentiment.song_lyrics import search_lyrics
+
 
 def join_lyrics(text):
 

@@ -40,6 +40,6 @@ def search_lyrics(top_words):
                         'Track': list_of_tracks,
                         'Lyric_Snippet': list_of_lyrics})
 
-    return new_lyrics_df[0:5]
+    return new_lyrics_df[0:10]
 
 # print(search_lyrics(['im', 'mean', 'kill', 'science', 'today']))

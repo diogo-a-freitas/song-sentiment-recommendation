@@ -71,7 +71,7 @@ class SpotifyApiExtractor:
 
             i += 1
 
-            time.sleep(1)
+            time.sleep(0.1)
 
 
         df = pd.DataFrame(songs_attrs, columns=['track', 'artists', 'id', 'danceability', 'energy', 'valence', 'tempo'])

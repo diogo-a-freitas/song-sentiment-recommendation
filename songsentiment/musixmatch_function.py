@@ -27,7 +27,7 @@ def search_lyrics(top_words):
               'f_has_lyrics': True,
               's_track_rating': 'desc',
               'quorum_factor': 0.8,
-              'page_size': 20}
+              'page_size': 10}
 
     response = requests.get(url, params=params).json()
 

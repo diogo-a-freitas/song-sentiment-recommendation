@@ -1,6 +1,3 @@
-# TODO: select a base image
-# Tip: start with a full base image, and then see if you can optimize with
-#      a slim or tensorflow base
 
 #      Standard version
 # FROM python:3.10

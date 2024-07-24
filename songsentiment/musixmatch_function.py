@@ -11,8 +11,6 @@ import pandas as pd
 import random
 
 # Load feather file
-#load feather file
-
 first_million_clean_tags = feather.read_feather('raw_data/first_million_clean_tags_02.feather')
 
 def search_lyrics(top_words):
@@ -23,7 +21,6 @@ def search_lyrics(top_words):
     list_of_lyrics = []
 
     #get a random sample of 500 songs:
-
     random_sample = first_million_clean_tags.sample(n=500)
 
     def any_top_word_in_tags(tags, top_words):

@@ -211,9 +211,11 @@ else:
     Our recommendation for you:
     """
 
-    for song in res['songs']:
+    sorted_songs = sorted(res['songs'], key=lambda x: x['valence'])
 
-        if res['user_sentiment']['label'] == song['sentiment_label']:
+    for song in sorted_songs:
+
+        if res['user_sentiment']['label'] == song['sentiment_label'] and song["cluster"] == 0:
 
             url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
 

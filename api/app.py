@@ -4,9 +4,11 @@ import requests
 import streamlit.components.v1 as components
 
 
+verbosity = 0
+
 #Set Header Config (name on tab)
 st.set_page_config(
-    page_title="MoodTrack",
+    page_title="MoodTracks",
     page_icon="🎶",
 )
 
@@ -97,7 +99,7 @@ st.markdown('''We would love to know how your day is going so far! Please tell u
 #Input text box
 with st.form("my_form"):
 
-    utext  = st.text_area(max_chars=140, placeholder='Please write your massage here', label='form', label_visibility='hidden')
+    utext  = st.text_area(max_chars=140, placeholder='Please write your massage here', label='form', height=10, label_visibility='hidden')
     st.caption('Please write us a message above 50 and below 140 characters')
 
     options = None
@@ -161,6 +163,9 @@ with st.form("my_form"):
                 "display: none;"
             ]
 
+        """
+
+        """
 
         # Display the thermometer with emojis
         st.markdown(f"""
@@ -277,10 +282,11 @@ with st.form("my_form"):
 
                 components.iframe(url, height=80)
 
-                st.markdown('Song cluster: ' + str(song['cluster']))
-                st.markdown('Song valence: ' + str(round(song['valence'], 2)))
-                st.markdown('Song sentiment: ' + str(song['sentiment_label']))
-                st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
+                if verbosity > 0:
+                    st.markdown('Song cluster: ' + str(song['cluster']))
+                    st.markdown('Song valence: ' + str(round(song['valence'], 2)))
+                    st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+                    st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
 
             elif song['sentiment_label'] == 'positive' and\
                  options == "match the topics we discovered and improve your mood?":

@@ -4,9 +4,11 @@ import requests
 import streamlit.components.v1 as components
 
 
+verbosity = 0
+
 #Set Header Config (name on tab)
 st.set_page_config(
-    page_title="MoodTrack",
+    page_title="MoodTracks",
     page_icon="🎶",
 )
 
@@ -14,10 +16,85 @@ with open("api/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 #Set Title
-st.markdown("<h1 style='text-align: center; color: white;'>🎶MoodTrack</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>🎶 MoodTracks</h1>", unsafe_allow_html=True)
 
 #Set intro marker
 st.markdown('''We would love to know how your day is going so far! Please tell us all about it, we won't tell a soul! 🤫''')
+
+#Draft for 3rd iteration to replace the one up top to be placed after line25
+# model 1
+
+#some elif statement for when checkboxes are there
+#'''---'''
+
+#    res = requests.get(url, params).json()
+#
+#    st.markdown('Sentiment: *' + str(res['user_sentiment']['label']) +
+#                        '* with a score of ' + str(round(res['user_sentiment']['score'], 2)))
+#
+#    st.markdown('Topics: ' + ', '.join(res['user_topics']))
+#
+#    """
+#    ---Our recommendation for you:
+#    """
+#    for song in res["songs"]:
+#       if res["songs"]["cluster"] == 0:
+#           song["cluster_label"] = "positive"
+#       elif res["songs"]["cluster"] == 1:
+#           song["cluster_label"] = "negative"
+#       elif res["songs"]["cluster"] == 2:
+#           song["cluster_label"] == "neutral"
+
+#    for song in res["songs"]:
+#
+#        if res['user_sentiment']['label'] == song['sentiment_label'] == song["cluster_label"]:
+#
+#            url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
+#
+#            components.iframe(url, height=80)
+#
+#            st.markdown('Song cluster: '   + str(song['cluster']))
+#            st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+#            st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+#            st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
+
+# some elif statement for checkbox
+# 2nd model is currently active
+
+# some elif stamtent for checkbox
+#3rd model
+#'''---'''
+
+#    res = requests.get(url, params).json()
+#
+#    st.markdown('Sentiment: *' + str(res['user_sentiment']['label']) +
+#                        '* with a score of ' + str(round(res['user_sentiment']['score'], 2)))
+#
+#    st.markdown('Topics: ' + ', '.join(res['user_topics']))
+#
+#    """
+#    ---Our recommendation for you:
+#    """
+#    for song in res["songs"]:
+#       if res["songs"]["cluster"] == 0:
+#           song["cluster_label"] = "positive"
+#       elif res["songs"]["cluster"] == 1:
+#           song["cluster_label"] = "negative"
+#       elif res["songs"]["cluster"] == 2:
+#           song["cluster_label"] == "neutral"
+
+#    for song in res["songs"]:
+#
+#        if res['user_sentiment']['label'] == song['sentiment_label'] == song["cluster_label"]:
+#
+#            url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
+#
+#            components.iframe(url, height=80)
+#
+#            st.markdown('Song cluster: '   + str(song['cluster']))
+#            st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+#            st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+#            st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
 
 #Input text box
 
@@ -31,6 +108,7 @@ if 'sentiment_label' not in st.session_state:
 
 #instantiate form
 with st.form("my_form"):
+
     utext  = st.text_area(max_chars=140, placeholder='Please write your massage here', label='form', height=10, label_visibility='hidden')
     st.caption('Please write us a message above 50 and below 140 characters')
 
@@ -197,6 +275,7 @@ with st.form("my_form"):
                             </style>
                             ''', unsafe_allow_html=True)
 
+        if sentiment_int == 0 and verbosity > 0:
 
 if st.session_state.submitted:
 
@@ -231,23 +310,34 @@ if st.session_state.submitted:
 
 
 
+        """
 
+        """
 
-        # for song in res['songs']:
+        for song in res['songs']:
 
-        #     if res['user_sentiment']['label'] == song['sentiment_label']:
+            if res['user_sentiment']['label'] == song['sentiment_label'] and\
+               options == "match the topics we discovered and your mood?":
 
-        #         url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
+                url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
 
-        #         components.iframe(url, height=80)
+                components.iframe(url, height=80)
 
-        #         st.markdown('Song cluster: ' + str(song['cluster']))
-        #         st.markdown('Song valence: ' + str(song['valence']))
-        #         st.markdown('Song Sentiment Score: ' + str(song['sentiment_score']))
-        #         st.markdown('Song Sentiment Score: ' + str(song['sentiment_label']))
+                if verbosity > 1:
+                    st.markdown('Song cluster: ' + str(song['cluster']))
+                    st.markdown('Song valence: ' + str(round(song['valence'], 2)))
+                    st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+                    st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
 
-        #     elif res['user_sentiment']['label'] == song['sentiment_label']:
-        #         pass
+            elif song['sentiment_label'] == 'positive' and\
+                 options == "match the topics we discovered and improve your mood?":
 
-        #     else:
-        #         pass
+                url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
+
+                components.iframe(url, height=80)
+
+            elif options == "don't match the topics we discovered and improve your mood?":
+                pass
+
+            else:
+                pass

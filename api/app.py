@@ -271,7 +271,7 @@ with st.form("my_form"):
                             index=None,)
 
 
-    submitted = st.form_submit_button("Click me :point_left:")
+    submitted = st.form_submit_button("Submit")
 
 
     if submitted and options != None:

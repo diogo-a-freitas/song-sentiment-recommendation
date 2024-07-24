@@ -4,69 +4,45 @@ import requests
 import os
 import pandas as pd
 
-# from musixmatch import Musixmatch
+#import feather package and numpy
 
+import pyarrow.feather as feather
+import pandas as pd
+import random
 
-#function to get songs
+# Load feather file
+#load feather file
+
+first_million_clean_tags = feather.read_feather('raw_data/first_million_clean_tags_02.feather')
+
 def search_lyrics(top_words):
 
     #create lists of song details
     list_of_artists = []
     list_of_tracks = []
-    list_of_track_ids = []
     list_of_lyrics = []
-    list_of_artist_id = []
-    list_of_album_names = []
 
-    url = 'https://api.musixmatch.com/ws/1.1/track.search'
+    #get a random sample of 500 songs:
 
-    api_key= os.environ.get('MUSIXMATCH')
+    random_sample = first_million_clean_tags.sample(n=500)
 
-    params = {'apikey': api_key,
-         'q_lyrics': ' '.join(top_words),
-         'f_has_lyrics': True,
-         's_track_rating': 'desc',
-         'quorum_factor': 0.8}
-
-    response = requests.get(url, params=params).json()
+    def any_top_word_in_tags(tags, top_words):
+        return any(word in tags for word in top_words)
 
 
-    index = 0
-    while index < len(response['message']['body']['track_list']):
+    filtered_data = random_sample[random_sample['tags'].apply(lambda tags: any_top_word_in_tags(tags, top_words))]
 
-        #get gate to song details
-        base_response = response['message']['body']['track_list'][index]
 
-        #get song details
-        artist_name = base_response['track']['artist_name']
-        track_name = base_response['track']['track_name']
-        track_id = base_response['track']['track_id']
-        artist_id = base_response['track']['artist_id']
-        album_name = base_response['track']['album_name']
-        list_of_artists.append(artist_name)
-        list_of_tracks.append(track_name)
-        list_of_track_ids.append(track_id)
-        list_of_artist_id.append(artist_id)
-        list_of_album_names.append(album_name)
-
-        #connect to lyrics endpoint
-        url_lyrics = 'https://api.musixmatch.com/ws/1.1/track.lyrics.get'
-        params_lyrics = {'apikey': api_key, 'track_id': track_id}
-        lyrics_response = requests.get(url_lyrics, params=params_lyrics).json()
-        lyrics_snippet = lyrics_response['message']['body']['lyrics']['lyrics_body']
-        list_of_lyrics.append(lyrics_snippet)
-        index += 1
+    list_of_artists = filtered_data['artist'].tolist()
+    list_of_tracks = filtered_data['title'].tolist()
+    list_of_lyrics = filtered_data['clean_text'].tolist()
 
     #turn in dataframe
     new_lyrics_df = pd.DataFrame({
-                        'Artist_id': list_of_artist_id,
                         'Artist': list_of_artists,
                         'Track': list_of_tracks,
-                        'Track_ID': list_of_track_ids,
-                        'Album_Name': list_of_album_names,
                         'Lyric_Snippet': list_of_lyrics})
 
-    return new_lyrics_df
+    return new_lyrics_df[0:5]
 
-
-#print(search_lyrics('night, last, job, cake, woot'))
+print(search_lyrics(['im', 'mean', 'kill', 'science', 'today']))

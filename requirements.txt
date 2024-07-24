@@ -22,3 +22,6 @@ nltk
 textblob
 
 spotipy
+
+#feather files
+pyarrow

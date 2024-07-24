@@ -103,10 +103,10 @@ def pre_process_user_input(sentence, reverse_order=True):
 
     #print out five words
 
-    output_5 = [x[0] for x in output_topics]
+    top_words = [x[0] for x in output_topics]
 
-    output_5_last = ', '.join(output_5)
+    #output_5_last = ', '.join(output_5)
 
-    return output_5_last
+    return top_words
 
-#print(pre_process_user_input("I am feeling happy"))
+print(pre_process_user_input("I am feeling happy"))

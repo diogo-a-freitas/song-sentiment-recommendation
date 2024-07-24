@@ -166,6 +166,9 @@ with st.form("my_form"):
         """
 
         """
+        """
+
+        """
 
         # Display the thermometer with emojis
         st.markdown(f"""
@@ -192,7 +195,7 @@ with st.form("my_form"):
         st.markdown('Topics: ' + res['user_topics'])
 
 
-        if sentiment_int == 0:
+        if sentiment_int == 0 and verbosity > 0:
 
             st.markdown(
                         """
@@ -216,7 +219,7 @@ with st.form("my_form"):
                         </style>
                         ''', unsafe_allow_html=True)
 
-        elif sentiment_int == 1:
+        elif sentiment_int == 1 and verbosity > 0:
 
             st.markdown(
                         """
@@ -238,7 +241,7 @@ with st.form("my_form"):
                         }
                         </style>
                         ''', unsafe_allow_html=True)
-        else:
+        elif verbosity > 0:
             st.markdown(
                         """
                         You may be feeling emotions such as:
@@ -282,7 +285,7 @@ with st.form("my_form"):
 
                 components.iframe(url, height=80)
 
-                if verbosity > 0:
+                if verbosity > 1:
                     st.markdown('Song cluster: ' + str(song['cluster']))
                     st.markdown('Song valence: ' + str(round(song['valence'], 2)))
                     st.markdown('Song sentiment: ' + str(song['sentiment_label']))

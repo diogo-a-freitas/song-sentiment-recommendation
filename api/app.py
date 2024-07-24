@@ -4,7 +4,7 @@ import requests
 import streamlit.components.v1 as components
 
 
-verbosity = 0
+verbosity = 2
 
 #Set Header Config (name on tab)
 st.set_page_config(
@@ -199,23 +199,22 @@ with st.form("my_form"):
                             </style>
                             ''', unsafe_allow_html=True)
 
-        if sentiment_int == 0 and verbosity > 0:
 
 if st.session_state.submitted:
 
     with st.form("preferences"):
 
         options = st.radio(
-            "Before we make our recommendations, would you like to:",
+            "Listen to songs that:",
             [
-                "Listen to songs that match the topics we discovered from your message and your mood?",
-                "Listen to songs that match the topics we discovered from your message and improve your mood?",
-                "Listen to songs that don't match the topics we discovered from your message and improve your mood?"
+                "match the topics we discovered and your mood?",
+                "match the topics we discovered and improve your mood?",
+                "don't match the topics we discovered and improve your mood?"
             ],
             index=None,
         )
 
-        preference_button = st.form_submit_button("Click me :point_left:")
+        preference_button = st.form_submit_button("Search :point_left:")
 
         if preference_button and len(utext) >= 20:
 

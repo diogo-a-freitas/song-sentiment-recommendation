@@ -53,7 +53,7 @@ with st.form("my_form"):
 
             st.warning('Please write a message on the text box and select one of the options above', icon="⚠️")
 
-        elif (len(utext) < 20 and len(utext) != 0) or options == None:
+        elif (len(utext) < 50 and len(utext) != 0) or options == None:
             st.warning('Please input more than 20 characters and select one of the options above', icon="⚠️")
 
         else:
@@ -217,10 +217,10 @@ with st.form("my_form"):
                         url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
                         components.iframe(url, height=80)
 
-                        st.markdown('Song cluster: '   + str(song['cluster']))
-                        st.markdown('Song valence: '   + str(round(song['valence'], 2)))
-                        st.markdown('Song sentiment: ' + str(song['sentiment_label']))
-                        st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
+                        # st.markdown('Song cluster: '   + str(song['cluster']))
+                        # st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+                        # st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+                        # st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
 
 
             elif options == 'Listen to songs that match the topics we discovered from your message and improve your mood?':
@@ -234,10 +234,10 @@ with st.form("my_form"):
                         url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
                         components.iframe(url, height=80)
 
-                        st.markdown('Song cluster: '   + str(song['cluster']))
-                        st.markdown('Song valence: '   + str(round(song['valence'], 2)))
-                        st.markdown('Song sentiment: ' + str(song['sentiment_label']))
-                        st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
+                        # st.markdown('Song cluster: '   + str(song['cluster']))
+                        # st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+                        # st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+                        # st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
 
             else:
 
@@ -252,7 +252,7 @@ with st.form("my_form"):
                         url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
                         components.iframe(url, height=80)
 
-                        st.markdown('Song cluster: '   + str(song['cluster']))
-                        st.markdown('Song valence: '   + str(round(song['valence'], 2)))
-                        st.markdown('Song sentiment: ' + str(song['sentiment_label']))
-                        st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
+                    # st.markdown('Song cluster: '   + str(song['cluster']))
+                    # st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+                    # st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+                    # st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))

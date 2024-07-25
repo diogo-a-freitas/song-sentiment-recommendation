@@ -1,8 +1,8 @@
 from songsentiment.user_topics import pre_process_user_input
-from songsentiment.musixmatch_function import search_lyrics
 from songsentiment.lyric_sentiment import adding_sentiment_columns
 from songsentiment.spotify_track import SpotifyApiExtractor
 from songsentiment.song_clusters import cluster_prediction
+from songsentiment.song_lyrics import search_lyrics
 
 import pandas as pd
 
@@ -80,4 +80,4 @@ def predict_songs(text: str, reverse_order: bool):
 
     return (final_df, user_sent, top_words_list)
 
-#print(predict_songs("This data frame is great", True))
+# print(predict_songs("This data frame is great", True))

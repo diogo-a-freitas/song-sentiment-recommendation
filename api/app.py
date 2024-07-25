@@ -4,7 +4,7 @@ import requests
 import streamlit.components.v1 as components
 
 
-verbosity = 0
+verbosity = 2
 
 #Set Header Config (name on tab)
 st.set_page_config(
@@ -34,14 +34,14 @@ if 'sentiment_label' not in st.session_state:
 with st.form("my_form"):
 
     utext  = st.text_area(max_chars=140, placeholder='Please write your massage here', label='form', height=10, label_visibility='hidden')
-    st.caption('Please write us a message above 50 and below 140 characters')
+    st.caption('Please write a message above 50 and below 140 characters')
 
     options = st.radio(
-                        "Before we make our recommendations, would you like to:",
+                        "Listen to songs that:",
                         [
-                            "Listen to songs that match the topics we discovered from your message and your mood?",
-                            "Listen to songs that match the topics we discovered from your message and improve your mood?",
-                            "Listen to songs that don't match the topics we discovered from your message and improve your mood?"
+                            "match the topics we discovered and your mood?",
+                            "match the topics we discovered and improve your mood?",
+                            "don't match the topics we discovered and improve your mood?"
                         ],
                         index=None,
                     )
@@ -51,7 +51,7 @@ with st.form("my_form"):
 
         if len(utext) == 0 and options == None:
 
-            st.warning('Please write a message on the text box and select one of the options above', icon="⚠️")
+            st.warning('Please write a message in the text box and select one of the options above', icon="⚠️")
 
         elif (len(utext) < 50 and len(utext) != 0) or options == None:
             st.warning('Please input more than 20 characters and select one of the options above', icon="⚠️")
@@ -138,7 +138,7 @@ with st.form("my_form"):
             st.markdown(f'We detected a {sentiment_label} sentiment from your message with a score of {sentiment_score}.')
 
             #additional info on the meaning of the labels
-            if sentiment_int == 0:
+            if sentiment_int == 0 and verbosity > 0:
 
                 st.markdown(
                             """
@@ -162,7 +162,7 @@ with st.form("my_form"):
                             </style>
                             ''', unsafe_allow_html=True)
 
-            elif sentiment_int == 1:
+            elif sentiment_int == 1 and verbosity > 0:
 
                 st.markdown(
                             """
@@ -184,7 +184,7 @@ with st.form("my_form"):
                             }
                             </style>
                             ''', unsafe_allow_html=True)
-            else:
+            elif verbosity > 0:
                 st.markdown(
                             """
                             You may be feeling emotions such as:
@@ -206,9 +206,9 @@ with st.form("my_form"):
                             </style>
                             ''', unsafe_allow_html=True)
 
-            st.markdown("<h1 style='text-align: center;'>🎶OUR RECOMENDATIONS🎶</h1>", unsafe_allow_html=True)
+            st.markdown("<h1 style='text-align: center;'>🎶 OUR RECOMENDATIONS 🎶</h1>", unsafe_allow_html=True)
 
-            if options == 'Listen to songs that match the topics we discovered from your message and your mood?':
+            if options == 'that match the topics we discovered and your mood?':
 
                 for song in res['songs']:
 
@@ -217,13 +217,14 @@ with st.form("my_form"):
                         url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
                         components.iframe(url, height=80)
 
-                        # st.markdown('Song cluster: '   + str(song['cluster']))
-                        # st.markdown('Song valence: '   + str(round(song['valence'], 2)))
-                        # st.markdown('Song sentiment: ' + str(song['sentiment_label']))
-                        # st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
+                        if verbosity > 1:
+                            st.markdown('Song cluster: '   + str(song['cluster']))
+                            st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+                            st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+                            st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
 
 
-            elif options == 'Listen to songs that match the topics we discovered from your message and improve your mood?':
+            elif options == 'that match the topics we discovered and improve your mood?':
 
                 sorted_songs = sorted(res['songs'], key=lambda x: x['valence'], reverse=True)
 
@@ -234,13 +235,13 @@ with st.form("my_form"):
                         url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
                         components.iframe(url, height=80)
 
-                        # st.markdown('Song cluster: '   + str(song['cluster']))
-                        # st.markdown('Song valence: '   + str(round(song['valence'], 2)))
-                        # st.markdown('Song sentiment: ' + str(song['sentiment_label']))
-                        # st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
+                        if verbosity > 1:
+                            st.markdown('Song cluster: '   + str(song['cluster']))
+                            st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+                            st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+                            st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
 
             else:
-
                 reverse_value=False
 
                 sorted_songs = sorted(res['songs'], key=lambda x: x['valence'], reverse=True)
@@ -252,7 +253,8 @@ with st.form("my_form"):
                         url = f"https://open.spotify.com/embed/track/{song['id']}?utm_source=generator"
                         components.iframe(url, height=80)
 
-                    # st.markdown('Song cluster: '   + str(song['cluster']))
-                    # st.markdown('Song valence: '   + str(round(song['valence'], 2)))
-                    # st.markdown('Song sentiment: ' + str(song['sentiment_label']))
-                    # st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))
+                        if verbosity > 1:
+                            st.markdown('Song cluster: '   + str(song['cluster']))
+                            st.markdown('Song valence: '   + str(round(song['valence'], 2)))
+                            st.markdown('Song sentiment: ' + str(song['sentiment_label']))
+                            st.markdown('Song sentiment score: ' + str(round(song['sentiment_score'], 2)))

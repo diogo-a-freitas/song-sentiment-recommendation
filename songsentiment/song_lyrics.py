@@ -42,4 +42,4 @@ def search_lyrics(top_words):
 
     return new_lyrics_df[0:100]
 
-print(search_lyrics(['im', 'mean', 'kill', 'science', 'today']))
+# print(search_lyrics(['im', 'mean', 'kill', 'science', 'today']))
